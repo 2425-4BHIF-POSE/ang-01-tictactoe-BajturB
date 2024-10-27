@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, signal, WritableSignal} from '@angular/core';
 import {CellComponent} from './cell/cell.component';
 
 @Component({
@@ -11,5 +11,5 @@ import {CellComponent} from './cell/cell.component';
   styleUrl: './field.component.scss'
 })
 export class FieldComponent {
-
+  public currTurn: WritableSignal<number> = signal(1);
 }
