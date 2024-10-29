@@ -1,15 +1,25 @@
-import {Component, signal, WritableSignal} from '@angular/core';
-import {CellComponent} from './cell/cell.component';
+import { Component } from '@angular/core';
+import { CellService } from '../cell-service';
+import { NgForOf } from '@angular/common';
+import { CellComponent } from './cell/cell.component';
 
 @Component({
   selector: 'app-field',
   standalone: true,
   imports: [
-    CellComponent
+    CellComponent,
+    NgForOf
   ],
   templateUrl: './field.component.html',
-  styleUrl: './field.component.scss'
+  styleUrls: ['./field.component.scss']
 })
 export class FieldComponent {
-  public currTurn: WritableSignal<number> = signal(1);
+  constructor(public cellService: CellService) {}
+
+  onCellClick(index: number) {
+    const currTurn = this.cellService.currTurn();
+    const currPlayer = currTurn % 2 === 0 ? "X" : "O";
+    this.cellService.updateCellState(index, currPlayer);
+    this.cellService.currTurn.update((oldVal: number) => (oldVal === 9 ? 0 : oldVal + 1));
+  }
 }
