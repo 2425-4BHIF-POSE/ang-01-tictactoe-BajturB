@@ -16,21 +16,24 @@ import { CellComponent } from './cell/cell.component';
 })
 export class FieldComponent {
 
-  public winnerMessage: string | null = null;
-
   constructor(public cellService: CellService) {}
 
   onCellClick(index: number) {
+    if (this.cellService.checkIfGameOver()){
+      return;
+    }
     const currTurn = this.cellService.currTurn();
     const currPlayer = currTurn % 2 === 0 ? "X" : "O";
     this.cellService.updateCellState(index, currPlayer);
     if (currTurn >= 3){
       const winner = this.cellService.checkWinningCombination();
       if (winner) {
-        this.winnerMessage = `Player ${winner} wins!`;
+        this.cellService.setGameOver(true);
+        this.cellService.winnerMessage.set(`Player ${winner} wins!`);
         return;
       } else if (currTurn === 9) {
-        this.winnerMessage = "Draw!";
+        this.cellService.setGameOver(true);
+        this.cellService.winnerMessage.set(`Draw`);
         return;
       }
     }

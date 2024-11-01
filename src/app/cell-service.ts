@@ -7,6 +7,8 @@ import { Injectable, signal, WritableSignal } from '@angular/core';
 export class CellService {
   public currTurn: WritableSignal<number> = signal(1);
   public cellStates: WritableSignal<string[]> = signal(Array(9).fill("default"));
+  public gameOver: WritableSignal<boolean> = signal(false);
+  public winnerMessage: WritableSignal<string | null> = signal(null);
 
   updateCellState(index: number, state: string) {
     const newStates = [...this.cellStates()];
@@ -34,7 +36,17 @@ export class CellService {
   }
 
   resetGame() {
+    this.winnerMessage.set(null);
+    this.setGameOver(false);
     this.currTurn.set(1);
     this.cellStates.set(Array(9).fill("default"));
+  }
+
+  checkIfGameOver(){
+    return this.gameOver();
+  }
+
+  setGameOver(value: boolean){
+    this.gameOver.set(value);
   }
 }
