@@ -1,7 +1,9 @@
 <div class="container">
   <h2>Welcome to {{title}}!</h2>
   <app-field></app-field>
-  <button (click)="resetGame()">Restart</button>
+  <div class="controls">
+    <div class="current-turn">Current Turn: {{cellService.getCurrentPlayer()}}</div>
+    <button (click)="resetGame()">Restart</button>
+  </div>
   <router-outlet></router-outlet>
-
 </div>

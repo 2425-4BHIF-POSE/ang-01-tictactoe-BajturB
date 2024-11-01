@@ -14,7 +14,7 @@ import {CellService} from './cell-service';
 export class AppComponent {
   title = 'TicTacToe';
 
-  constructor(private cellService: CellService) {}
+  constructor(protected cellService: CellService) {}
 
   resetGame() {
     this.cellService.resetGame();

@@ -1,0 +1,15 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15rem;
+  height: 15rem;
+  font-size: 2rem;
+  border: 1px solid #000;
+  cursor: pointer;
+}
+
+:host:hover {
+  background-color: rgba(249, 249, 249, 0.25);
+  color: #000000;
+}
